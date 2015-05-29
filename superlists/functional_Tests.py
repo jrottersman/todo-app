@@ -34,10 +34,11 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
 
         table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-                any(row.text == '1: foo' for row in rows),
-                "New to-do item did not appear in table"
+        rows = table.find_elements_by_tag_name('tr') 
+        self.assertIn('1: foo', [row.text for row in rows])
+        self.assertIn(
+                '2: foo',
+                [row.text for row in rows]
         )
         #there is still a textbox inviting her to enter items she enters another
         #item

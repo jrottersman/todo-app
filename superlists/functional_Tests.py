@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_list_and_retrieve_later(self):
     
         #Edith comes to our site yay traffic!
@@ -33,19 +38,16 @@ class NewVisitorTest(unittest.TestCase):
         #When she hits enter the list is update with 1: item
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr') 
-        self.assertIn('1: foo', [row.text for row in rows])
-        self.assertIn(
-                '2: foo',
-                [row.text for row in rows]
-        )
+        self.check_for_row_in_list_table('1: foo')
         #there is still a textbox inviting her to enter items she enters another
         #item
-        self.fail('Finish the test!')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('bar')
+        inputbox.send_keys(Keys.ENTER)
 
         #the page updates with her new item so the list is now "1: foo 2: bar"
-        
+        self.check_for_row_in_list_table('1: foo')
+        self.check_for_row_in_list_table('2: bar')
         #she reads that the site has generated a unique URL for her
 
         #she visits that url her to do list is still there

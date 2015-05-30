@@ -49,7 +49,7 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('1: foo')
         self.check_for_row_in_list_table('2: bar')
         #she reads that the site has generated a unique URL for her
-
+        self.fail('Finish the test!')
         #she visits that url her to do list is still there
 
 if __name__ == '__main__':

@@ -76,6 +76,6 @@ class NewVisitorTest(LiveServerTestCase):
 
         #There should be no trace of Edith's list
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Buy milk', page_text)
+        self.assertIn('Buy Rolex', page_text)
 
         #Satisfied, they go there seperate ways
